@@ -17,3 +17,10 @@ Likes
 rails g scaffold User name:text
 rails g scaffold Post title:text user_id:integer
 rails g scaffold Like post_id:integer user_id:integer
+
+
+Query
+Collection vs Connection
+Authentication
+Authorization
+Pagination
