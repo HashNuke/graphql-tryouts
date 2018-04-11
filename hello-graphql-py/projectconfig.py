@@ -1,1 +1,1 @@
-db_url = "postgres:///hello-graphql-py-rails"
+db_url = "postgres://localhost/hello-graphql-rails-development"

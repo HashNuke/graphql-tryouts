@@ -1,16 +1,11 @@
 from flask import Flask, request
-import graphene
 from pprint import pprint
 import json
+import graphql_defs
+from graphene import Schema
+from models import create_session
 
-
-class Query(graphene.ObjectType):
-    hello = graphene.String(description='A typical hello world')
-
-    def resolve_hello(self, info):
-        return 'World'
-
-schema = graphene.Schema(query=Query)
+schema = Schema(query=graphql_defs.Query)
 app = Flask(__name__)
 
 
@@ -39,6 +34,6 @@ def hello():
 @app.route("/graphql", methods=['POST'])
 def graphql():
     pprint(request.json)
-    result = schema.execute(request.json['query'])
+    result = schema.execute(request.json['query'], context_value={'session': create_session()})
     return format_response(result)
 

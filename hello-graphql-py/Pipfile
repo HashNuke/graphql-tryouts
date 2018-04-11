@@ -12,6 +12,7 @@ sqlalchemy = "*"
 graphene = "*"
 ipython = "*"
 "psycopg2" = "*"
+graphene-sqlalchemy = "*"
 
 
 [dev-packages]

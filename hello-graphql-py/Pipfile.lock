@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e10a8d1792740267f4e6b92ba2093fb9d78fb6d27a48dd2bc9fa5cb4f07eccec"
+            "sha256": "26c0f3c6a2f923a8e015e9c2efa2d7e53fc1f74e593f6145d780c510782f2e2b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -84,6 +84,13 @@
             ],
             "version": "==2.1"
         },
+        "graphene-sqlalchemy": {
+            "hashes": [
+                "sha256:9a7a8875894671273a88cd4ce2203a71fca88bbe3eb2590f902168a87ea9c1cd",
+                "sha256:c62f158fc5224698eba973520d620fc0eb98bc0c6b4daad6495961872e9e4dba"
+            ],
+            "version": "==2.0.0"
+        },
         "graphql-core": {
             "hashes": [
                 "sha256:4830699be53f9154273fa15726fc8b0c90bc22bbb8fc7c932586503b3cb9330e",
@@ -110,6 +117,14 @@
                 "sha256:eb2e116e75ecef9d4d228fdc66af54269afa26ab4463042e33785b887c628ba8"
             ],
             "version": "==0.2.0"
+        },
+        "iso8601": {
+            "hashes": [
+                "sha256:210e0134677cc0d02f6028087fee1df1e1d76d372ee1db0bf30bf66c5c1c89a3",
+                "sha256:49c4b20e1f38aa5cf109ddcd39647ac419f928512c869dc01d5c7098eddede82",
+                "sha256:bbbae5fb4a7abfe71d4688fd64bff70b91bbd74ef6a99d964bab18f7fdf286dd"
+            ],
+            "version": "==0.1.12"
         },
         "itsdangerous": {
             "hashes": [
@@ -241,6 +256,13 @@
             ],
             "version": "==0.8.1"
         },
+        "singledispatch": {
+            "hashes": [
+                "sha256:5b06af87df13818d14f08a028e42f566640aef80805c3b50c5056b086e3c2b9c",
+                "sha256:833b46966687b3de7f438c761ac475213e53b306740f1abfaa86e1d1aae56aa8"
+            ],
+            "version": "==3.4.0.3"
+        },
         "six": {
             "hashes": [
                 "sha256:70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9",
@@ -267,6 +289,7 @@
                 "sha256:b2c689d54e1144bbcfd191b0832980a21c2dbcf7b5ff7a66248a60c90e951eb8",
                 "sha256:d400a9344254803a2368533e4533a4200d21eb7b6b729c173bc38201a74db3f2"
             ],
+            "markers": "python_version <= '3.4'",
             "version": "==3.6.4"
         },
         "wcwidth": {
