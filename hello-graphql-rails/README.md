@@ -3,7 +3,7 @@
 ```
 (0...10).each do |i|
   user_id = i + 1
-  user = User.create(id: user_id)
+  user = User.create(id: user_id, name: "User ##{user_id}")
   (0...15).each do |post_id|
     post_index = post_id + 1
     user.posts.create(title: "Post ##{post_index} by #{user_id}")
