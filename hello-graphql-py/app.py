@@ -18,7 +18,7 @@ def format_location(location):
     return {'line': location.line, 'column': location.column}
 
 def format_error(error):
-    locations = map(error.locations, format_location)
+    locations = list(map(format_location, error.locations))
     return {
       'message': error.message,
       'locations': locations
@@ -28,7 +28,7 @@ def format_error(error):
 def format_response(graphql_result):
     response = {'data': graphql_result.data}
     if graphql_result.invalid:
-        response['errors'] = map(graphql_result.errors, format_error)
+        response['errors'] = list(map(format_error, graphql_result.errors))
     return json.dumps(response)
 
 
