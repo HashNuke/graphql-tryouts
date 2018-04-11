@@ -3,6 +3,7 @@ import graphene
 from pprint import pprint
 import json
 
+
 class Query(graphene.ObjectType):
     hello = graphene.String(description='A typical hello world')
 
