@@ -1,24 +1,20 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+```
+(0...10).each do |i|
+  user_id = i + 1
+  user = User.create(id: user_id)
+  (0...15).each do |post_id|
+    post_index = post_id + 1
+    user.posts.create(title: "Post ##{post_index} by #{user_id}")
+  end
+end
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+(0...10).each do |i|
+  user_id = i + 1
+  user = User.find_by(id: user_id)
+  Post.order('id').limit(3) do |post|
+    Like.create(user_id: user_id, post_id: post.id)
+  end
+end
+```
