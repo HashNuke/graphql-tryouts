@@ -44,8 +44,8 @@ CREATE TABLE public.ar_internal_metadata (
 
 CREATE TABLE public.likes (
     id bigint NOT NULL,
-    post_id integer,
-    user_id integer,
+    post_id bigint,
+    user_id bigint,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -77,7 +77,7 @@ ALTER SEQUENCE public.likes_id_seq OWNED BY public.likes.id;
 CREATE TABLE public.posts (
     id bigint NOT NULL,
     title text,
-    user_id integer,
+    user_id bigint,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

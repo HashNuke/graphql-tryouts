@@ -24,7 +24,6 @@ def format_error(error):
       'locations': locations
     }
 
-
 def format_response(graphql_result):
     response = {'data': graphql_result.data}
     if graphql_result.invalid:
