@@ -10,6 +10,7 @@ name = "pypi"
 flask = "*"
 sqlalchemy = "*"
 graphene = "*"
+ipython = "*"
 
 
 [dev-packages]
