@@ -12,7 +12,6 @@ Types::QueryType = GraphQL::ObjectType.define do
   end
 
 
-
   connection :allUsers, Types::UserType.connection_type do
     resolve ->(obj, args, ctx) {
       User.all
