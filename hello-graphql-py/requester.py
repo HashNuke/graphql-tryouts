@@ -34,7 +34,7 @@ query {
   node(id: "VXNlclR5cGU6MQ==") {
     ... on UserType {
       name
-      authoredPosts(from: "YXJyYXljb25uZWN0aW9uOjE") {
+      authoredPosts(first: 3, after: "YXJyYXljb25uZWN0aW9uOjE=") {
         edges {
           cursor
           node {
