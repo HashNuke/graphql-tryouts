@@ -14,13 +14,20 @@ requests.post("http://localhost:5000/graphql", gql="""
 }
 """)
 
+
 # Fetch users
 requests.post("http://localhost:5000/graphql", gql="""
 query {
   users {
     name
-    createdAt
-    updatedAt
+    authoredPosts {
+      edges {
+        node {
+          id
+          title
+        }
+      }
+    }
   }
 }
 """)
