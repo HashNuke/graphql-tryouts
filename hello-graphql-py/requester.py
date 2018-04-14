@@ -1,11 +1,13 @@
 env_file = 'requester_env.py'
 
+
 # Good request to start off tryouts
 requests.post("http://localhost:5000/graphql", gql="""
 {
   hello
 }
 """)
+
 
 # Bad request with syntax error
 requests.post("http://localhost:5000/graphql", gql="""
@@ -15,7 +17,7 @@ requests.post("http://localhost:5000/graphql", gql="""
 """)
 
 
-# Fetch users
+# Fetch users and posts
 requests.post("http://localhost:5000/graphql", gql="""
 query {
   users {
@@ -25,6 +27,7 @@ query {
         node {
           id
           title
+          createdAt
         }
       }
     }
