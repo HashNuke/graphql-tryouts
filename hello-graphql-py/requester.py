@@ -13,6 +13,7 @@ query {
           createdAt
           usersWhoLiked {
             name
+            createdAt
           }
           author {
             name
