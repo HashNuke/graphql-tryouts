@@ -19,7 +19,8 @@ class User(Base):
     created_at = Column(TIMESTAMP)
     updated_at = Column(TIMESTAMP)
 
-    posts = relationship("Post", back_populates="user")
+    authored_posts = relationship("Post", back_populates="author")
+    likes = relationship("Like", back_populates="user")
 
 
 class Post(Base):
@@ -32,14 +33,21 @@ class Post(Base):
     updated_at = Column(TIMESTAMP)
 
     user_id = Column(BigInteger, ForeignKey(User.id))
-    user = relationship("User", back_populates="posts")
+    author = relationship("User", back_populates="authored_posts")
+
+    likes = relationship("Like", back_populates="post")
 
 
 class Like(Base):
     __tablename__ = 'likes'
 
     id = Column(BigInteger, primary_key=True)
-    post_id = Column(BigInteger)
-    user_id = Column(BigInteger)
+
+    post_id = Column(BigInteger, ForeignKey(Post.id))
+    post = relationship("Post", back_populates="likes")
+
+    user_id = Column(BigInteger, ForeignKey(User.id))
+    user = relationship("User", back_populates="likes")
+
     created_at = Column(TIMESTAMP)
     updated_at = Column(TIMESTAMP)

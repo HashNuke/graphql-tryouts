@@ -1,6 +1,10 @@
 # README
 
 ```
+Post.delete_all
+Like.delete_all
+User.delete_all
+
 (0...10).each do |i|
   user_id = i + 1
   user = User.create(id: user_id, name: "User ##{user_id}")
@@ -13,8 +17,8 @@ end
 (0...10).each do |i|
   user_id = i + 1
   user = User.find_by(id: user_id)
-  Post.order('id').limit(3) do |post|
-    Like.create(user_id: user_id, post_id: post.id)
+  Post.order('id').limit(3).each do |post|
+    Like.create(user_id: user_id, post_id: post.id).errors
   end
 end
 ```
