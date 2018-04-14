@@ -1,24 +1,7 @@
 env_file = 'requester_env.py'
 
-
-# Good request to start off tryouts
-requests.post("http://localhost:5000/graphql", gql="""
-{
-  hello
-}
-""")
-
-
-# Bad request with syntax error
-requests.post("http://localhost:5000/graphql", gql="""
-{
-  hello|
-}
-""")
-
-
 # Fetch users and posts
-requests.post("http://localhost:5000/graphql", gql="""
+requests.post(base_url, gql="""
 query {
   users {
     name
@@ -28,6 +11,12 @@ query {
           id
           title
           createdAt
+          usersWhoLiked {
+            name
+          }
+          author {
+            name
+          }
         }
       }
     }
