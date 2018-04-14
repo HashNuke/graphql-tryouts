@@ -22,6 +22,8 @@ class PostType(SQLAlchemyObjectType):
     users_who_liked = graphene.List(lambda: UserType, description="users who liked post")
 
     def resolve_users_who_liked(self, info):
+        pprint("RESOLVE: usersWhoLiked")
+        pprint(info)
         return [UserType(id="123", name="Tommy")]
 
     class Meta:
