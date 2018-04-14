@@ -19,6 +19,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     }
   end
 
+  #NOTE do something like this for list type responses of a specific object
   # field :allUsers, Types::UserType.to_list_type do
   #   description "Get list of all users"
   #   resolve ->(obj, args, ctx) {
