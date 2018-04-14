@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import Column, BigInteger, Text, TIMESTAMP
+from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy import Column, BigInteger, Text, TIMESTAMP, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 import projectconfig
 
@@ -19,20 +19,27 @@ class User(Base):
     created_at = Column(TIMESTAMP)
     updated_at = Column(TIMESTAMP)
 
-class Like(Base):
-    __tablename__ = 'likes'
+    posts = relationship("Post", back_populates="user")
 
-    id = Column(BigInteger, primary_key=True)
-    post_id = Column(BigInteger)
-    user_id = Column(BigInteger)
-    created_at = Column(TIMESTAMP)
-    updated_at = Column(TIMESTAMP)
 
 class Post(Base):
     __tablename__ = 'posts'
 
     id = Column(BigInteger, primary_key=True)
     title = Column(Text)
+    user_id = Column(BigInteger)
+    created_at = Column(TIMESTAMP)
+    updated_at = Column(TIMESTAMP)
+
+    user_id = Column(BigInteger, ForeignKey(User.id))
+    user = relationship("User", back_populates="posts")
+
+
+class Like(Base):
+    __tablename__ = 'likes'
+
+    id = Column(BigInteger, primary_key=True)
+    post_id = Column(BigInteger)
     user_id = Column(BigInteger)
     created_at = Column(TIMESTAMP)
     updated_at = Column(TIMESTAMP)

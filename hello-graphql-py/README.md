@@ -19,6 +19,9 @@ from models import User, create_session
 
 session = create_session()
 
+users = session.query(User).filter(User.id == 1)
+list(users)[0].posts
+
 for instance in session.query(User).order_by(User.id):
     print(instance.name, instance.created_at)
 ```
