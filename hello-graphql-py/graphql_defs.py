@@ -34,6 +34,7 @@ class PostType(SQLAlchemyObjectType):
 class Query(graphene.ObjectType):
     users = graphene.List(UserType)
     hello = graphene.String(description='A typical hello world')
+    node = relay.Node.Field()
 
     def resolve_hello(self, info):
         return 'World'

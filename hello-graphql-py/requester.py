@@ -4,9 +4,11 @@ env_file = 'requester_env.py'
 requests.post(base_url, gql="""
 query {
   users {
+    id
     name
     authoredPosts {
       edges {
+        cursor
         node {
           id
           title
@@ -17,6 +19,27 @@ query {
           }
           author {
             name
+          }
+        }
+      }
+    }
+  }
+}
+""")
+
+
+# Fetch users and posts
+requests.post(base_url, gql="""
+query {
+  node(id: "VXNlclR5cGU6MQ==") {
+    ... on UserType {
+      name
+      authoredPosts(from: "YXJyYXljb25uZWN0aW9uOjE") {
+        edges {
+          cursor
+          node {
+            id
+            title
           }
         }
       }
