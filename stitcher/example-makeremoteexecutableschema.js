@@ -13,24 +13,24 @@ const url = 'http://graphql-tryout-rails.herokuapp.com/graphql';
 
 
 // Using node-fetch
-const fetcher = async ({ query, variables, operationName, context }) => {
-  const fetchResult = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ query, variables, operationName })
-  });
-  return fetchResult.json();
-};
+// const fetcher = async ({ query, variables, operationName, context }) => {
+//   const fetchResult = await fetch(url, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({ query, variables, operationName })
+//   });
+//   return fetchResult.json();
+// };
 
 
 (async function () {
-  var schema = await introspectSchema(fetcher);
+  var schema = await introspectSchema(link);
 
   return makeRemoteExecutableSchema({
     schema: schema,
-    fetcher,
+    link,
   });
 
   console.log("Remote schema fetched");
