@@ -34,10 +34,14 @@ from graphene import relay
 class Query(graphene.ObjectType):
     # users = graphene.List(UserType)
     hello_python = graphene.String(description='A typical hello world')
+    foo_by_user_id = graphene.String(description='fooByUserId')
     node = relay.Node.Field()
 
     def resolve_hello_python(self, info):
         return 'Hello from Python'
+
+    def resolve_foo_by_user_id(self, info):
+        return 'The little foo says a big hello'
 
     # def resolve_users(self, info):
     #     query = UserType.get_query(info)  # SQLAlchemy query
