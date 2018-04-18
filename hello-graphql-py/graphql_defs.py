@@ -34,14 +34,15 @@ class Post(SQLAlchemyObjectType):
 class Query(graphene.ObjectType):
     # node = relay.Node.Field()
     hello_python = graphene.String(description='A typical hello world')
-    posts_by_user_id = graphene.Field(Post, user_id=graphene.String())
+    posts_by_user_id = graphene.Field(graphene.List(Post), user_id=graphene.String())
 
     def resolve_hello_python(self, info):
         return 'Hello from Python'
 
-    def resolve_posts_by_user_id(self, args, context, info):
+    def resolve_posts_by_user_id(self, info, **args):
         session = create_session()
         posts = session.query(PostModel).filter(PostModel.user_id == 1)
+        return list(map(lambda post: Post(title=post.title), posts))
         return list(posts)
 
     # def resolve_users(self, info):

@@ -10,7 +10,7 @@ class GraphqlController < ApplicationController
       # current_user: current_user,
     }
 
-    ap query
+    puts query
     # puts variables.inspect
     # puts context.inspect
     # puts operation_name.inspect
