@@ -1,26 +1,31 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
-var introspectSchema = require('./introspectSchema');
+const fetch = require('node-fetch');
+const { HttpLink } = require('apollo-link-http');
+// var introspectSchema = require('./introspectSchema');
 const {
   makeExecutableSchema,
   makeRemoteExecutableSchema,
   addMockFunctionsToSchema,
   mergeSchemas,
+  introspectSchema
 } = require('graphql-tools');
 const { createApolloFetch } = require('apollo-fetch');
 
+const url = "http://graphql-tryout-rails.herokuapp.com/graphql";
+const link = new HttpLink({ uri: url, fetch });
+// const fetcher = createApolloFetch({uri: url});
 
-const fetcher = createApolloFetch({uri: 'http://localhost.charlesproxy.com:3000/graphql'});
-const schema = (async function(){
+(async function(){
+
+  var schema = await introspectSchema(link)
+  // console.log(schema);
   return makeRemoteExecutableSchema({
-    schema: await introspectSchema(fetcher),
-    fetcher,
+    schema: schema,
+    link,
   });
-})();
-
-
-schema.then(function(result) {
+})().then(function(result) {
   const mergedSchema = mergeSchemas({
     schemas: [result],
   });
@@ -32,39 +37,3 @@ schema.then(function(result) {
     console.log('Go to http://localhost:4000/graphiql to run queries!');
   });
 });
-
-
-// // Some fake data
-// const books = [
-//   {
-//     title: "Harry Potter and the Sorcerer's stone",
-//     author: 'J.K. Rowling',
-//   },
-//   {
-//     title: 'Jurassic Park',
-//     author: 'Michael Crichton',
-//   },
-// ];
-
-// // The GraphQL schema in string form
-// const typeDefs = `
-//   type Query { books: [Book] }
-//   type Book { title: String, author: String }
-// `;
-
-// // The resolvers
-// const resolvers = {
-//   Query: { books: () => books },
-// };
-
-// Put together a schema
-// const schema = makeExecutableSchema({
-//   typeDefs,
-//   resolvers,
-// });
-
-// export const schema = mergeSchemas({
-//   schemas: [chirpSchema, authorSchema],
-// });
-
-// Initialize the app
