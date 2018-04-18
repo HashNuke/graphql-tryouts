@@ -1,6 +1,6 @@
 import graphene
 from graphene_sqlalchemy import SQLAlchemyObjectType, SQLAlchemyConnectionField
-from models import User, Post, Like, create_session
+from models import User as UserModel, Post as PostModel, Like as LikeModel, create_session
 from pprint import pprint
 from graphene import relay
 
@@ -18,30 +18,31 @@ from graphene import relay
 #         # only_fields = ('id', 'name', 'created_at')
 
 
-# class PostType(SQLAlchemyObjectType):
-#     users_who_liked = graphene.List(lambda: UserType, description="users who liked post")
+class Post(SQLAlchemyObjectType):
+    # users_who_liked = graphene.List(lambda: UserType, description="users who liked post")
 
-#     def resolve_users_who_liked(self, info):
-#         pprint("RESOLVE: usersWhoLiked")
-#         pprint(info)
-#         return [UserType(id="123", name="Tommy")]
+    # def resolve_users_who_liked(self, info):
+    #     pprint("RESOLVE: usersWhoLiked")
+    #     pprint(info)
+    #     return [UserType(id="123", name="Tommy")]
 
-#     class Meta:
-#         model = Post
-#         interfaces = (relay.Node,)
+    class Meta:
+        model = PostModel
+        interfaces = (relay.Node,)
 
 
 class Query(graphene.ObjectType):
-    # users = graphene.List(UserType)
+    # node = relay.Node.Field()
     hello_python = graphene.String(description='A typical hello world')
-    foo_by_user_id = graphene.String(description='fooByUserId')
-    node = relay.Node.Field()
+    posts_by_user_id = graphene.Field(Post, user_id=graphene.String())
 
     def resolve_hello_python(self, info):
         return 'Hello from Python'
 
-    def resolve_foo_by_user_id(self, info):
-        return 'The little foo says a big hello'
+    def resolve_posts_by_user_id(self, args, context, info):
+        session = create_session()
+        posts = session.query(PostModel).filter(PostModel.user_id == 1)
+        return list(posts)
 
     # def resolve_users(self, info):
     #     query = UserType.get_query(info)  # SQLAlchemy query
