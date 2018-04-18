@@ -11,16 +11,13 @@ const {
   mergeSchemas,
   introspectSchema
 } = require('graphql-tools');
-const { createApolloFetch } = require('apollo-fetch');
 
 const url = "http://graphql-tryout-rails.herokuapp.com/graphql";
 const link = new HttpLink({ uri: url, fetch });
-// const fetcher = createApolloFetch({uri: url});
 
 (async function(){
-
   var schema = await introspectSchema(link)
-  // console.log(schema);
+
   return makeRemoteExecutableSchema({
     schema: schema,
     link,
