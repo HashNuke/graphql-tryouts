@@ -4,6 +4,7 @@ import json
 import graphql_defs
 from graphene import Schema
 from models import create_session
+from graphql.utils.extend_schema import extend_schema
 import extended_schema
 
 schema = Schema(query=graphql_defs.Query)
@@ -38,4 +39,3 @@ def graphql():
     pprint(request.json)
     result = schema.execute(request.json['query'], context_value={'session': create_session()})
     return format_response(result)
-

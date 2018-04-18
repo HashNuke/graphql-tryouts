@@ -3,28 +3,33 @@ const bodyParser = require('body-parser');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const fetch = require('node-fetch');
 const { HttpLink } = require('apollo-link-http');
-// var introspectSchema = require('./introspectSchema');
+
 const {
   makeExecutableSchema,
   makeRemoteExecutableSchema,
-  addMockFunctionsToSchema,
   mergeSchemas,
   introspectSchema
 } = require('graphql-tools');
 
-const url = "http://graphql-tryout-rails.herokuapp.com/graphql";
-const link = new HttpLink({ uri: url, fetch });
+const schemaUrls = [
+  "http://localhost:3000/graphql",
+  "http://localhost:5000/graphql"
+]
 
-(async function(){
-  var schema = await introspectSchema(link)
+const fetchSchema = async (url) => {
+  const link = new HttpLink({ uri: url, fetch });
+  const schema = await introspectSchema(link);
 
   return makeRemoteExecutableSchema({
     schema: schema,
     link,
   });
-})().then(function(result) {
+}
+
+let schemaFetchPromises = schemaUrls.map(fetchSchema);
+Promise.all(schemaFetchPromises).then((schemas) => {
   const mergedSchema = mergeSchemas({
-    schemas: [result],
+    schemas: schemas,
   });
 
   const app = express();

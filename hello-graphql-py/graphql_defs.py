@@ -33,11 +33,11 @@ from graphene import relay
 
 class Query(graphene.ObjectType):
     # users = graphene.List(UserType)
-    hello = graphene.String(description='A typical hello world')
+    hello_python = graphene.String(description='A typical hello world')
     node = relay.Node.Field()
 
-    def resolve_hello(self, info):
-        return 'World'
+    def resolve_hello_ruby(self, info):
+        return 'Hello from Python'
 
     # def resolve_users(self, info):
     #     query = UserType.get_query(info)  # SQLAlchemy query
