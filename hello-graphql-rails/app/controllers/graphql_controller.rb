@@ -11,9 +11,9 @@ class GraphqlController < ApplicationController
     }
 
     puts query.inspect
-    puts variables.inspect
-    puts context.inspect
-    puts operation_name.inspect
+    # puts variables.inspect
+    # puts context.inspect
+    # puts operation_name.inspect
 
     # byebug
     result = HelloGraphqlSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
