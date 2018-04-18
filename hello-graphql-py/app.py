@@ -8,7 +8,7 @@ from graphql.utils.extend_schema import extend_schema
 import extended_schema
 
 schema = Schema(query=graphql_defs.Query)
-schema = extend_schema(schema, extended_schema.ast)
+# schema = extend_schema(schema, extended_schema.ast)
 app = Flask(__name__)
 
 
@@ -36,6 +36,7 @@ def hello():
 
 @app.route("/graphql", methods=['POST'])
 def graphql():
+    pprint("GET REQUEST")
     pprint(request.json)
     result = schema.execute(request.json['query'], context_value={'session': create_session()})
     return format_response(result)
