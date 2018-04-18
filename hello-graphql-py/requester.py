@@ -47,3 +47,12 @@ query {
   }
 }
 """)
+
+
+requests.post(base_url, gql="""
+query {
+  postsByUserId(userId: "VXNlci0x") {
+    name
+  }
+}
+""")
