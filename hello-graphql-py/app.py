@@ -4,8 +4,10 @@ import json
 import graphql_defs
 from graphene import Schema
 from models import create_session
+import extended_schema
 
 schema = Schema(query=graphql_defs.Query)
+schema = extend_schema(schema, extended_schema.ast)
 app = Flask(__name__)
 
 
