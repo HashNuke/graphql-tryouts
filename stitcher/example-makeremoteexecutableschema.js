@@ -5,15 +5,14 @@ const { introspectSchema, makeRemoteExecutableSchema } = require('graphql-tools'
 const url = 'http://graphql-tryout-rails.herokuapp.com/graphql';
 const link = new HttpLink({ uri: url, fetch });
 
-const schema = async function () {
+async function () {
   const schema = await introspectSchema(link);
 
+  console.log("Remote schema fetched");
   return executableSchema = makeRemoteExecutableSchema({
     schema,
     link,
   });
 
-
 }();
 
-console.log("Remote schema fetched");
