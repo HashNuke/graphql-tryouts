@@ -36,7 +36,7 @@ class Query(graphene.ObjectType):
     hello_python = graphene.String(description='A typical hello world')
     node = relay.Node.Field()
 
-    def resolve_hello_ruby(self, info):
+    def resolve_hello_python(self, info):
         return 'Hello from Python'
 
     # def resolve_users(self, info):
