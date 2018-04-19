@@ -5,10 +5,8 @@ import graphql_defs
 from graphene import Schema
 from models import create_session
 from graphql.utils.extend_schema import extend_schema
-import extended_schema
 
 schema = Schema(query=graphql_defs.Query)
-# schema = extend_schema(schema, extended_schema.ast)
 app = Flask(__name__)
 
 
