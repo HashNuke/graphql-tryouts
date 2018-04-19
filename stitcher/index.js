@@ -14,7 +14,7 @@ const {
 const schemaUrls = [
   "http://localhost:3000/graphql",
   "http://localhost:5000/graphql"
-]
+];
 
 const linkDefs = `
   extend type User {
@@ -30,12 +30,11 @@ const fetchSchema = async (url) => {
     schema: schema,
     link,
   });
-}
+};
 
 const resolverForPostsByUserId = (mergeInfo) => {
   (parent, args, context, info) => {
     const userId = parent.id;
-
     console.log("RESOLVER FOR POSTS");
 
     return mergeInfo.delegate(
@@ -48,18 +47,18 @@ const resolverForPostsByUserId = (mergeInfo) => {
       info,
     );
   }
-}
+};
 
-let crossResolvers = (mergeInfo) => ({
+const crossResolvers = (mergeInfo) => ({
   User: {
     posts: {
       // fragment: "fragment UserFragment on User { id }",
       resolve: resolverForPostsByUserId(mergeInfo)
     }
   }
-})
+});
 
-let schemaFetchPromises = schemaUrls.map(fetchSchema);
+const schemaFetchPromises = schemaUrls.map(fetchSchema);
 Promise.all(schemaFetchPromises).then((schemas) => {
   schemas.push(linkDefs);
   const mergedSchema = mergeSchemas({
