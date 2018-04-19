@@ -12,7 +12,7 @@ HelloGraphqlSchema = GraphQL::Schema.define do
   }
 
   resolve_type ->(type, obj, ctx) {
-    puts("RESOLVE type")
+    puts("RESOLVE #{type} #{obj}")
     case obj
     when User
       Types::UserType
