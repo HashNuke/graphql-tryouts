@@ -33,9 +33,10 @@ const fetchSchema = async (url) => {
 };
 
 const resolverForPostsByUserId = (mergeInfo) => {
+  console.log("Creating resolver for POSTS");
   (parent, args, context, info) => {
     const userId = parent.id;
-    console.log("RESOLVER FOR POSTS");
+    console.log("Running resolver for POSTS");
 
     return mergeInfo.delegate(
       'query',
