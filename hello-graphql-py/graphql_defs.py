@@ -40,10 +40,9 @@ class Query(graphene.ObjectType):
         return 'Hello from Python'
 
     def resolve_posts_by_user_id(self, info, **args):
-        session = create_session()
-        posts = session.query(PostModel).filter(PostModel.user_id == 1)
-        return list(map(lambda post: Post(title=post.title), posts))
-        return list(posts)
+        user_id = args.get('user_id')
+        pprint("USER ID: {}".format(user_id))
+        return Post.get_query(info).filter(PostModel.user_id == 1)
 
     # def resolve_users(self, info):
     #     query = UserType.get_query(info)  # SQLAlchemy query

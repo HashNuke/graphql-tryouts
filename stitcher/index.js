@@ -18,7 +18,7 @@ const schemaUrls = [
 
 const linkDefs = `
   extend type User {
-    posts: Post
+    posts: [Post]
   }
 `;
 
@@ -34,7 +34,8 @@ const fetchSchema = async (url) => {
 
 const resolverForPostsByUserId = (mergeInfo) => {
   console.log("Creating resolver for POSTS");
-  (parent, args, context, info) => {
+
+  return (parent, args, context, info) => {
     const userId = parent.id;
     console.log("Running resolver for POSTS");
 
@@ -50,14 +51,18 @@ const resolverForPostsByUserId = (mergeInfo) => {
   }
 };
 
-const crossResolvers = (mergeInfo) => ({
-  User: {
-    posts: {
-      // fragment: "fragment UserFragment on User { id }",
-      resolve: resolverForPostsByUserId(mergeInfo)
+const crossResolvers = (mergeInfo) => {
+  console.log("Cross resolvers");
+
+  return {
+    User: {
+      posts: {
+        // fragment: "fragment UserFragment on User { id }",
+        resolve: resolverForPostsByUserId(mergeInfo)
+      }
     }
-  }
-});
+  };
+};
 
 const schemaFetchPromises = schemaUrls.map(fetchSchema);
 Promise.all(schemaFetchPromises).then((schemas) => {
