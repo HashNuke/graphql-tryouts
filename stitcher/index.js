@@ -53,7 +53,7 @@ const resolverForPostsByUserId = (mergeInfo) => {
 let crossResolvers = (mergeInfo) => ({
   User: {
     posts: {
-      fragment: "fragment UserFragment on User { id }",
+      // fragment: "fragment UserFragment on User { id }",
       resolve: resolverForPostsByUserId(mergeInfo)
     }
   }
