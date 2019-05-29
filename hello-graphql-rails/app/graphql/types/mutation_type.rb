@@ -14,7 +14,26 @@ Types::MutationType = GraphQL::ObjectType.define do
     description "An example field added by the generator"
     resolve ->(obj, args, ctx) {
       # "Hello World!"
-      raise GeneralError.new('SY-10034', 'Bad image URL', {bad_url: "http://example.com"})
+
+      errors = [
+        {
+          message: 'Bad image URL',
+          extensions: {
+            code: 'SY-10034',
+            context: {bad_url: "http://example.com"}
+          }
+        },
+
+        {
+          message: 'Duplicate location',
+          extensions: {
+            code: 'SY-10035',
+            context: {location_id: "123"}
+          }
+        }
+      ]
+
+      raise GeneralError.new(errors)
     }
   end
 end
