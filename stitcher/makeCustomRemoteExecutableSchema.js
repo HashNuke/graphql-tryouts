@@ -22,7 +22,7 @@ const GraphQLInt = graphql.GraphQLInt;
 const GraphQLScalarType = graphql.GraphQLScalarType;
 const printSchema = graphql.printSchema;
 
-const linkToFetcher = require('./graphql-tools/dist/stitching/linkToFetcher.js').default
+const linkToFetcher = require('./node_modules/graphql-tools/dist/stitching/linkToFetcher.js').default
 
 exports.default = function makeCustomRemoteExecutableSchema({
   schema,
@@ -140,7 +140,8 @@ exports.default = function makeCustomRemoteExecutableSchema({
     ) {
       const resolver = {};
       Object.keys(type.getFields()).forEach(field => {
-        resolver[field] = defaultMergedResolver;
+        console.log("customMergedResolver started")
+        resolver[field] = customMergedResolver;
       });
       resolvers[type.name] = resolver;
     }
