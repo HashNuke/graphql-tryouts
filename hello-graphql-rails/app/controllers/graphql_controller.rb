@@ -1,6 +1,8 @@
 class GraphqlController < ApplicationController
   skip_before_action :verify_authenticity_token
 
+  rescue_from GeneralError, with: :general_error
+
   def execute
     variables = ensure_hash(params[:variables])
     query = params[:query]
@@ -18,6 +20,11 @@ class GraphqlController < ApplicationController
     # byebug
     result = HelloGraphqlSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
+  end
+
+
+  def general_error(exception)
+    render json: {errors: exception.errors}
   end
 
   private
