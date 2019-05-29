@@ -42,12 +42,13 @@ class CombinedError extends Error {
     }
 }
 
-
 function checkResultAndHandleErrors(result, info, responseKey) {
-  console.log("LOG BRO LOG")
   if (!responseKey) {
     responseKey = getResponseKeyFromInfo(info);
   }
+
+  console.log(responseKey);
+
 
   if (result.errors && (!result.data || result.data[responseKey] == null)) {
     // apollo-link-http & http-link-dataloader need the
@@ -57,7 +58,11 @@ function checkResultAndHandleErrors(result, info, responseKey) {
       result.errors.length === 1 && hasResult(result.errors[0])
         ? result.errors[0]
         : new CombinedError(concatErrors(result.errors), result.errors);
-    throw locatedError(newError, info.fieldNodes, responsePathAsArray(info.path));
+
+    debugger;
+    // return {errors: result.errors};
+    // locatedError allows returning only one error object
+    throw result.errors;
   }
 
   debugger;

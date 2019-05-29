@@ -3,11 +3,11 @@ const isEmptyObject = require('./node_modules/graphql-tools/dist/isEmptyObject.j
 const defaultMakeRemoteExecutableSchema = require('./node_modules/graphql-tools/dist/stitching/makeRemoteExecutableSchema.js');
 const defaultCreateResolver = defaultMakeRemoteExecutableSchema.createResolver;
 
-const graphql = require('graphql');
 
 const customMergedResolver = require('./customMergedResolver.js');
 const makeExecutableSchema = require('graphql-tools').makeExecutableSchema;
 
+const graphql = require('graphql');
 const buildSchema = graphql.buildSchema;
 const GraphQLObjectType = graphql.GraphQLObjectType;
 const GraphQLFieldResolver = graphql.GraphQLFieldResolver;
