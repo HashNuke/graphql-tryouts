@@ -1,6 +1,6 @@
-const isEmptyObject = require('./graphql-tools/dist/isEmptyObject.js').isEmptyObject;
+const isEmptyObject = require('./node_modules/graphql-tools/dist/isEmptyObject.js').default;
 
-const defaultMakeRemoteExecutableSchema = require('./graphql-tools/dist/stitching/makeRemoteExecutableSchema.js');
+const defaultMakeRemoteExecutableSchema = require('./node_modules/graphql-tools/dist/stitching/makeRemoteExecutableSchema.js');
 const defaultCreateResolver = defaultMakeRemoteExecutableSchema.createResolver;
 
 const graphql = require('graphql');

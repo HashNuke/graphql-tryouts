@@ -37,4 +37,4 @@ const customMergedResolver = (parent, args, context, info) => {
   return result;
 };
 
-export default customMergedResolver;
+exports.default = customMergedResolver;
