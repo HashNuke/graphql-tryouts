@@ -1,6 +1,4 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+const { ApolloServer, gql } = require('apollo-server');
 const fetch = require('node-fetch');
 const { HttpLink } = require('apollo-link-http');
 
@@ -16,11 +14,6 @@ const schemaUrls = [
   "http://localhost:5000/graphql"
 ];
 
-const linkDefs = `
-  extend type User {
-    posts: [Post]
-  }
-`;
 
 const fetchSchema = async (url) => {
   const link = new HttpLink({ uri: url, fetch });
@@ -32,52 +25,17 @@ const fetchSchema = async (url) => {
   });
 };
 
-const resolverForPostsByUserId = (mergeInfo) => {
-  
-  return (parent, args, context, info) => {
-    const userId = parent.id;
-    
-    return mergeInfo.delegate(
-      'query',
-      'postsByUserId',
-      {
-        userId,
-      },
-      context,
-      info,
-    );
-  }
-};
-
-const crossResolvers = (mergeInfo) => {
-  console.log("Cross resolvers");
-
-  return {
-    User: {
-      posts: {
-        // fragment: "fragment UserFragment on User { id }",
-        resolve: resolverForPostsByUserId(mergeInfo)
-      }
-    }
-  };
-};
 
 const schemaFetchPromises = schemaUrls.map(fetchSchema);
+
 Promise.all(schemaFetchPromises).then((schemas) => {
-  schemas.push(linkDefs);
   const mergedSchema = mergeSchemas({
     schemas: schemas,
-    resolvers: crossResolvers
   });
 
-  const app = express();
-  app.use(
-    '/graphql',
-    bodyParser.json(),
-    graphqlExpress({ schema: mergedSchema })
-  );
-  app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
-  app.listen(4000, () => {
-    console.log('Go to http://localhost:4000/graphiql to run queries!');
+  const server = new ApolloServer({schema: mergedSchema });
+
+  server.listen().then(({ url }) => {
+    console.log(`🚀  Server ready at ${url}`);
   });
 });

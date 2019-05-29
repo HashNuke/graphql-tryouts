@@ -8,4 +8,12 @@ Types::MutationType = GraphQL::ObjectType.define do
       "Hello World!"
     }
   end
+
+
+  field :testErrorField, types.String do
+    description "An example field added by the generator"
+    resolve ->(obj, args, ctx) {
+      "Hello World!"
+    }
+  end
 end
