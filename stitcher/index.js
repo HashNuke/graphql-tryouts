@@ -9,6 +9,8 @@ const {
   introspectSchema
 } = require('graphql-tools');
 
+const makeCustomRemoteExecutableSchema = require('./makeCustomRemoteExecutableSchema.js')
+
 const schemaUrls = [
   "http://localhost:3000/graphql",
   "http://localhost:5000/graphql"
@@ -19,7 +21,7 @@ const fetchSchema = async (url) => {
   const link = new HttpLink({ uri: url, fetch });
   const schema = await introspectSchema(link);
 
-  return makeRemoteExecutableSchema({
+  return makeCustomRemoteExecutableSchema({
     schema: schema,
     link,
   });
