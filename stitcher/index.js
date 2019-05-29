@@ -59,18 +59,28 @@ function checkResultAndHandleErrors(result, info, responseKey) {
         ? result.errors[0]
         : new CombinedError(concatErrors(result.errors), result.errors);
 
-    debugger;
-    // return {errors: result.errors};
-    // locatedError allows returning only one error object
-    throw result.errors;
-  }
+    // IF you return, the parent function will expect
+    // the return value to be the same structure as the graphql def for the field
 
-  debugger;
+    // return 'Hello ErrorTom';
+
+    // locatedError allows returning only one error object
+    // Errors need to be thrown for the parent function to format the response into the "errors" key
+    throw locatedError(newError, info.fieldNodes, responsePathAsArray(info.path));
+  }
 
   let resultObject = result.data[responseKey];
   if (result.errors) {
     resultObject = annotateWithChildrenErrors(resultObject, result.errors);
   }
+
+  // This controls the data to be shown under the key for the field.
+  // This return value cannot control the parent key's name/structure.
+
+  // const myresult = "Hello Tom";
+  // console.dir(myresult);
+  // return myresult;
+
   return resultObject;
 }
 
