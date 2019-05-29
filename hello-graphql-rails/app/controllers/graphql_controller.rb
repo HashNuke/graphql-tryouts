@@ -24,7 +24,7 @@ class GraphqlController < ApplicationController
 
 
   def general_error(exception)
-    render json: {errors: exception.errors}
+    render json: {data: {}, errors: exception.errors}
   end
 
   private
