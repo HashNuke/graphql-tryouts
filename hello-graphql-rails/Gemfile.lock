@@ -84,7 +84,7 @@ GEM
     graphiql-rails (1.4.10)
       railties
       sprockets-rails
-    graphql (1.7.14)
+    graphql (1.9.6)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (1.0.0)
