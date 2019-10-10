@@ -1,4 +1,5 @@
 const { ApolloServer, gql } = require('apollo-server');
+const { buildFederatedSchema } = require("@apollo/federation");
 
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
@@ -26,7 +27,7 @@ const authors = [
   },
   {
     id: 2,
-    author: 'Michael Crichton',
+    name: 'Michael Crichton',
   },
 ];
 
@@ -36,10 +37,12 @@ const resolvers = {
   },
 };
 
-port = 4001
-const server = new ApolloServer({ typeDefs, resolvers });
+const schema = buildFederatedSchema([
+  { typeDefs, resolvers }
+])
+const server = new ApolloServer({schema});
 
 // The `listen` method launches a web server.
-server.listen(port).then(({ url }) => {
+server.listen(4001).then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });
