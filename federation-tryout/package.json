@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server1": "$(npm bin)/nodemon server1.js",
+    "server2": "$(npm bin)/nodemon server2.js",
+    "gateway": "$(npm bin)/nodemon gateway.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +16,8 @@
     "@apollo/gateway": "^0.10.6",
     "apollo-gateway": "0.0.1",
     "apollo-server": "^2.9.5",
-    "graphql": "^14.5.8"
+    "apollo-server-express": "^2.9.16",
+    "graphql": "^14.5.8",
+    "nodemon": "^2.0.2"
   }
 }

@@ -1,4 +1,7 @@
-const { ApolloServer } = require("apollo-server");
+const express = require('express');
+const app = express();
+
+const { ApolloServer, gql } = require("apollo-server-express");
 const { ApolloGateway } = require("@apollo/gateway");
 
 const gateway = new ApolloGateway({
@@ -19,6 +22,8 @@ const gateway = new ApolloGateway({
 // });
 
 const server = new ApolloServer({ gateway, subscriptions: false });
-server.listen(4002).then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`);
-});;
+server.applyMiddleware({ app });
+
+app.listen({ port: 4002 }, () => {
+  console.log(`🚀 Server ready at http://localhost:4002${server.graphqlPath}`);
+});
