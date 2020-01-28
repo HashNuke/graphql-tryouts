@@ -10,6 +10,7 @@ const typeDefs = gql`
   type Author {
   	id: ID
     name: String
+    #genre: String
   }
 
   # The "Query" type is special: it lists all of the available queries that
@@ -24,10 +25,12 @@ const authors = [
   {
     id: 1,
     name: 'J.K. Rowling',
+    genre: "fiction"
   },
   {
     id: 2,
     name: 'Michael Crichton',
+    genre: "fiction"
   },
 ];
 

@@ -9,7 +9,8 @@ const gateway = new ApolloGateway({
   serviceList: [
     { name: 'server1', url: 'http://localhost:4000/' },
     { name: 'server2', url: 'http://localhost:4001/' }
-  ]
+  ],
+  // experimental_pollInterval: 5000
 });
 
 // const gateway = new ApolloGateway({
@@ -23,6 +24,13 @@ const gateway = new ApolloGateway({
 
 const server = new ApolloServer({ gateway, subscriptions: false });
 server.applyMiddleware({ app });
+
+app.get('/reload-schemas', async (req, res) => {
+  const { schema, executor } = await gateway.load();
+  server.schema = schema;
+  server.executor = executor;
+  res.send(`🚀 Schema reloaded`);
+});
 
 app.listen({ port: 4002 }, () => {
   console.log(`🚀 Server ready at http://localhost:4002${server.graphqlPath}`);
